@@ -8,13 +8,7 @@
     A native C and CUDA-based benchmark comparing CPU vs. GPU acceleration for fundamental image processing algorithms.
     <br />
     <a href="docs/methodology.md"><strong>Explore the Methodology »</strong></a>
-    <br />
-    <br />
-    <a href="REPORT.md">View Full Report</a>
-    ·
-    <a href="https://github.com/your_username/cuda-image-benchmark/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
-    ·
-    <a href="https://github.com/your_username/cuda-image-benchmark/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+
   </p>
 </div>
 
@@ -45,8 +39,6 @@
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
-
----
 
 ## About The Project
 
@@ -83,11 +75,6 @@ Device -> Host Transfer  <-----|
 verify correctness & timing    |    free memory (Device)
 Save Image (stb_image_write)   |
 ```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
----
-
 ## Getting Started
 
 To get a local copy up and running, follow these simple steps.
@@ -126,11 +113,6 @@ gcc --version
    make -j$(nproc)
    ```
    *(Alternatively, a `Makefile` is provided in the root directory. You can just run `make` from the root)*
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
----
-
 ## Usage
 
 The CLI allows you to specify an input image and the exact operation you want to benchmark. 
@@ -153,10 +135,6 @@ The CLI allows you to specify an input image and the exact operation you want to
 
 *Note: If no `--input` image is provided, a synthetic 1920x1080 test image will be automatically generated inside `images/input/`.*
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
----
-
 ## Benchmarking & Results
 
 The project runs the CPU and GPU versions multiple times (default: 10) and calculates the mean time, excluding the first warmup run for the GPU.
@@ -171,54 +149,8 @@ Benchmark results are printed to the console and saved to `results/benchmark.csv
 
 ### Limitations to Note
 * PCIe transfer overhead can heavily outweigh kernel execution time for small images (e.g. 512x512). Massive end-to-end speedups are typically only seen on >1080p images (Amdahl's Law).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
----
-
-## Roadmap / Future Improvements
-
-- [ ] **CUDA Streams**: Overlap memory transfers and computation to hide latency.
-- [ ] **Pinned Memory**: Use `cudaMallocHost` for much faster PCIe transfers.
-- [ ] **Constant Memory**: Store the convolution kernels (Gaussian, Sobel) in constant memory for faster broadcast reads.
-- [ ] **Separable Convolution**: Apply 1D blur horizontally then vertically for Gaussian blur to reduce operations from $O(K^2)$ to $O(2K)$.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
----
-
-## Contributing
-
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
----
-
 ## License
-
 Distributed under the MIT License. See `LICENSE` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
----
-
-## Acknowledgments
-
-* [stb_image](https://github.com/nothings/stb) - Single-file public domain image loading/saving libraries for C/C++.
-* [NVIDIA CUDA Documentation](https://docs.nvidia.com/cuda/)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 <!-- MARKDOWN LINKS & IMAGES -->
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
 [license-url]: https://github.com/your_username/cuda-image-benchmark/blob/master/LICENSE
