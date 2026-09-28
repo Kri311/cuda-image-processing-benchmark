@@ -68,7 +68,7 @@ sequenceDiagram
     participant CPU as Host (C / RAM)
     participant GPU as Device (CUDA / VRAM)
 
-    CPU->>CPU: Load Image (stb_image)
+    Note over CPU: Load Image (stb_image)
     CPU->>GPU: Allocate Device Memory (cudaMalloc)
     CPU->>GPU: Host-to-Device Transfer (cudaMemcpy)
     
@@ -78,8 +78,8 @@ sequenceDiagram
     deactivate GPU
     
     CPU->>GPU: Free Device Memory (cudaFree)
-    CPU->>CPU: Verify Correctness & Timing
-    CPU->>CPU: Save Output Image (stb_image_write)
+    Note over CPU: Verify Correctness & Timing
+    Note over CPU: Save Output Image (stb_image_write)
 ```
 ## Getting Started
 
