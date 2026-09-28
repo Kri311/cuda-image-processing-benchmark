@@ -62,18 +62,24 @@ Image processing operations are highly parallelizable because the computation fo
 * **C/CUDA Interoperability**: Interfacing standard C host code with C++-based `nvcc` device code safely using `extern "C"`.
 
 ### Architecture
-```text
-Host (C / CPU)                      Device (CUDA / GPU)
------------------------------------------------------------------
-Load Image (stb_image)         |    
-allocate memory (Host)         |    allocate memory (Device)
-Host -> Device Transfer  ----->|    
-                               |    Launch Kernel <<<Grid, Block>>>
-                               |       - Threads compute pixels
-                               |       - Uses Global/Shared Mem
-Device -> Host Transfer  <-----|
-verify correctness & timing    |    free memory (Device)
-Save Image (stb_image_write)   |
+
+```mermaid
+sequenceDiagram
+    participant CPU as Host (C / RAM)
+    participant GPU as Device (CUDA / VRAM)
+
+    CPU->>CPU: Load Image (stb_image)
+    CPU->>GPU: Allocate Device Memory (cudaMalloc)
+    CPU->>GPU: Host-to-Device Transfer (cudaMemcpy)
+    
+    activate GPU
+    Note right of GPU: Kernel Launch <<<Grid, Block>>><br/>1. Map Threads to Pixels<br/>2. Load Global/Shared Memory<br/>3. Execute Algorithm
+    GPU-->>CPU: Device-to-Host Transfer (cudaMemcpy)
+    deactivate GPU
+    
+    CPU->>GPU: Free Device Memory (cudaFree)
+    CPU->>CPU: Verify Correctness & Timing
+    CPU->>CPU: Save Output Image (stb_image_write)
 ```
 ## Getting Started
 
